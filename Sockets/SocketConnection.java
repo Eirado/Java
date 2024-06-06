@@ -7,22 +7,21 @@ import java.net.Socket;
 public class ClientSocket {
     public static void main(String[] args) {
 
-String IP_DO_SERVIDOR = "";
-int PORTA = ;
-
-String mensagem = "";
+String IP_DO_SERVIDOR = "10.130.129.103";
+int PORT = 12345;
+String myMensage = "MjAxNw==";
 
 try {
 
-            Socket socket = new Socket(IP_DO_SERVIDOR, PORTA);
-            System.out.println("Connectado ao servidor com sucesso!");
+            Socket socket = new Socket(IP_DO_SERVIDOR, PORT);
+            System.out.println("connected");
 
             OutputStream outputStream = socket.getOutputStream();
-            outputStream.write(mensagem.getBytes());
+            outputStream.write(myMensage.getBytes());
             outputStream.flush();
-            System.out.println("Mensagem enviada ao servidor: " + mensagem);
+            System.out.println("Mensage that was sent: " + myMensage);
 
-            InputStream inputStream =socket.getInputStream();
+            InputStream inputStream = socket.getInputStream();
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int bytesRead;
@@ -31,8 +30,12 @@ try {
                 byteArrayOutputStream.write(buffer, 0, bytesRead);
             }
 
-            String response = byteArrayOutputStream.toString("UTF-8");
-            System.out.println(response);
+            String serverResponse = byteArrayOutputStream.toString("UTF-8");
+            System.out.println(serverResponse);
+
+             try (FileOutputStream fileOutputStream = new FileOutputStream("Response.txt")) {
+                fileOutputStream.write(byteArrayOutputStream.toByteArray());
+            }
 
             byteArrayOutputStream.close();
             inputStream.close();
@@ -40,7 +43,7 @@ try {
             socket.close();
 
         } catch( IOException e) {
-            System.out.println("Ocorreu um erro: "+ e.getMessage());
+            System.out.println("Error: "+ e.getMessage());
         }
     }
 }
