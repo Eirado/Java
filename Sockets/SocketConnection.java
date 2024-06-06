@@ -8,13 +8,13 @@ import java.net.Socket;
 public class ClientSocket {
     public static void main(String[] args) {
 
-String IP_DO_SERVIDOR = "10.130.129.103";
+String Server_IP = "10.130.129.103";
 int PORT = 12345;
 String myMensage = "MjAxNw==";
 
 try {
 
-            Socket socket = new Socket(IP_DO_SERVIDOR, PORT);
+            Socket socket = new Socket(Server_IP, PORT);
             System.out.println("connected");
 
             OutputStream outputStream = socket.getOutputStream();
