@@ -34,10 +34,6 @@ try {
             String serverResponse = byteArrayOutputStream.toString("UTF-8");
             System.out.println(serverResponse);
 
-             try (FileOutputStream fileOutputStream = new FileOutputStream("Response.txt")) {
-                fileOutputStream.write(byteArrayOutputStream.toByteArray());
-            }
-
             byteArrayOutputStream.close();
             inputStream.close();
             outputStream.close();
